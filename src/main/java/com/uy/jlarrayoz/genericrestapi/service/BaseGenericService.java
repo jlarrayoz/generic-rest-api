@@ -8,15 +8,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
 @Transactional(readOnly = true)
-public class BaseGenericService<T extends BaseGenericEntity> {
+public class BaseGenericService<T extends BaseGenericEntity, ID extends Serializable> {
 
-    private final BaseGenericRepository<T> repository;
+    private final BaseGenericRepository<T, ID> repository;
 
-    public BaseGenericService(BaseGenericRepository<T> repository) {
+    public BaseGenericService(BaseGenericRepository<T, ID> repository) {
         this.repository = repository;
     }
 
@@ -32,7 +33,7 @@ public class BaseGenericService<T extends BaseGenericEntity> {
         return repository.findAll(pageable);
     }
 
-    public Optional<T> findById(Long id){
+    public Optional<T> findById(ID id){
         return repository.findById(id);
     }
 
@@ -47,7 +48,7 @@ public class BaseGenericService<T extends BaseGenericEntity> {
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
-    public void deleteById(Long id) {
+    public void deleteById(ID id) {
         repository.deleteById(id);
     }
 }

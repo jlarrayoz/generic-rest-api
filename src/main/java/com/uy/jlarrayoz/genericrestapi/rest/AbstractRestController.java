@@ -6,7 +6,9 @@ import com.uy.jlarrayoz.genericrestapi.entity.BaseGenericEntity;
 import com.uy.jlarrayoz.genericrestapi.util.MyAnnotationUtils;
 import org.modelmapper.ModelMapper;
 
-public abstract class AbstractRestController <T extends BaseGenericEntity> {
+import java.io.Serializable;
+
+public abstract class AbstractRestController <T extends BaseGenericEntity, ID extends Serializable> {
     public static final String DEFAULT_CREATE_METHOD = "create";
     public static final String DEFAULT_UPDATE_MEHTOD = "update";
 
@@ -19,6 +21,10 @@ public abstract class AbstractRestController <T extends BaseGenericEntity> {
         this.entityClass = getEntityClass();
     }
 
+    /**
+     * Devuelve la Class del tipo generico T
+     * @return Class del tipo T
+     */
     protected Class<T> getEntityClass(){
         TypeToken<T> typeToken = new TypeToken<T>(getClass()) {};
         return (Class<T>) typeToken.getRawType();

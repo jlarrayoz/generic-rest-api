@@ -12,27 +12,28 @@ import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public abstract class BaseGenericRestController<T extends BaseGenericEntity> extends AbstractRestController<T> {
+public abstract class BaseGenericRestController<T extends BaseGenericEntity, ID extends Serializable> extends AbstractRestController<T, ID> {
 
-    private final BaseGenericService<T> service;
+    private final BaseGenericService<T, ID> service;
 
     @Autowired
-    public BaseGenericRestController(BaseGenericRepository<T> repository) {
-        this.service = new BaseGenericService<T>(repository);
+    public BaseGenericRestController(BaseGenericRepository<T, ID> repository) {
+        this.service = new BaseGenericService<T, ID>(repository);
     }
 
     @Autowired
-    public BaseGenericRestController(BaseGenericService<T> service) {
+    public BaseGenericRestController(BaseGenericService<T, ID> service) {
         this.service = service ;
     }
 
 
     @GetMapping(value = "{id}")
-    public Optional<T> get(@PathVariable(value = "id", required = true) Long id) {
+    public Optional<T> get(@PathVariable(value = "id", required = true) ID id) {
         return service.findById(id);
     }
 
@@ -68,7 +69,7 @@ public abstract class BaseGenericRestController<T extends BaseGenericEntity> ext
     }
 
     @DeleteMapping(value = "{id}")
-    public void delete(@PathVariable(value = "id", required = true) Long id) {
+    public void delete(@PathVariable(value = "id", required = true) ID id) {
         service.deleteById(id);
     }
 
