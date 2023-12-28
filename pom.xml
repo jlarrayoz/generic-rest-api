@@ -12,7 +12,7 @@
 
 	<groupId>com.uy.jlarrayoz.genericrestapi</groupId>
 	<artifactId>genericrestapi-spring-boot-starter</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1</version>
 	<name>genericrestapi-spring-boot-starter</name>
 	<description>Generic Rest Api Starter</description>
 

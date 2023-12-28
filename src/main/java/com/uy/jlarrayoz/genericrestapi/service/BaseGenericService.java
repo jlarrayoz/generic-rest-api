@@ -15,7 +15,7 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class BaseGenericService<T extends BaseGenericEntity, ID extends Serializable> {
 
-    private final BaseGenericRepository<T, ID> repository;
+    protected final BaseGenericRepository<T, ID> repository;
 
     public BaseGenericService(BaseGenericRepository<T, ID> repository) {
         this.repository = repository;
